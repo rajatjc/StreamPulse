@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>videoChatApp</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
+    <link href="http://vjs.zencdn.net/6.10/video-js.css" rel="stylesheet">
+    <script src="http://vjs.zencdn.net/ie8/1.1/videojs-ie8.min.js"></script>
+    <script src="video.js"></script>
+		<script src="videojs-http-streaming.min.js"></script>
+  </head>
+  <body>
+    <div class="header">
+        <div class="header__back">
+          <i class="fas fa-angle-left"></i>
+        </div>
+        <div class="header">
+          <img alt="Twitch logo" src="http://assets.stickpng.com/images/580b57fcd9996e24bc43c540.png"width=50" height="50">
+          <h1> Twitching!</h1>
+        </div>
+      </div>
+    </div>  
+    <div class="main">  
+    <div class="main__left">
+      <div class="videos__group">
+        <div id="video-grid">
+          <video id="example_video_1" class="video-js" controls preload="none" width="1500" height="800" autoplay="true" poster="https://i.imgur.com/0o9TQzD.jpg" data-setup="{}">
+            <source src="https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8" type="application/x-mpegURL">
+              <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+            </video>
+        </div>
+      </div>
+      
+    </div>
+    <div class="main__right">
+      <div class="main__chat_window">
+          <div class="messages">
+            <ul id="messagesList">
+              <li>Welcome to the chatroom!</li>
+          
+            </ul>
+          </div>
+      </div>
+      <form action=""id="msgForm">
+      <div class="main__message_container">
+        
+        <input id="chat_message" type="text" autocomplete="off" placeholder="Type message here...">
+        <button id="send" class="options__button">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+      </input>
+      </div>
+    </form>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+
+    const name=prompt("Enter display name:");
+    var form=document.getElementById("msgForm");
+    var input=document.getElementById("chat_message");
+    form.addEventListener("submit",function(e){
+      e.preventDefault();
+      if (input.value) {
+          socket.emit("chat message", name+": "+input.value);
+          input.value = "";
+        }
+    });
+    socket.on("chat message", function (msg) {
+        var item = document.createElement("li");
+        item.textContent = msg;
+        messagesList.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+  </script>
+  </body>
+  
+</html>
