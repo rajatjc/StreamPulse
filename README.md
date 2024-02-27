@@ -9,7 +9,7 @@ HLS Livestreaming Application (Twitch.tv Alternative) built using 🍃 Node.js, 
 
 1. Clone the repository locally.
 ```
-git clone https://github.com/abenav4/livestreaming-application.git
+git clone https://github.com/rajatjc/StreamPulse.git
 ```
 2. Importantly, you need to have an active server running (and a corresponding video file) in order to run this application. Alternatively, an existing server on the web can be used as well. A helpful list of free HLS m3u8 URLs can be found at [this link](https://ottverse.com/free-hls-m3u8-test-urls/).
 
